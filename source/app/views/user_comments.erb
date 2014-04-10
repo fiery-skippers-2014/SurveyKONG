@@ -1,0 +1,11 @@
+<div class="container">
+<h3>These are your comments!</h3>
+<% @user_comments.each do |comment| %>
+<h4> Original Post Title </h4>
+<h6><%= Post.find(comment.post_id).title %></h6>
+<h4><%= comment.comment %></h4>
+
+
+<% end %>
+
+</div>

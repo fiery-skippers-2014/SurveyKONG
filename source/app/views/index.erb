@@ -1,0 +1,10 @@
+<div class="container">
+
+  <% if session[:user_id] %>
+  <h2> Hello Person <%=session[:user_id]%></h2>
+  <% end %>
+
+
+<div><%= erb :_all_post %></div>
+
+</div>

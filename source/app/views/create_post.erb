@@ -1,0 +1,9 @@
+<form id="create_post" method="post" action="/post/<%= current_user.id %>/new">
+    <label class="label" for="title">Title</label>
+    <input type="text" name="title" placeholder="title for you post"><br>
+    <label class="label" for="body">Body</label>
+    <textarea rows="4" cols="50" name="body" placeholder="enter content">
+    </textarea>
+    <br>
+    <div class="submit"><input type="submit" value="Create Post"></div>
+  </form>

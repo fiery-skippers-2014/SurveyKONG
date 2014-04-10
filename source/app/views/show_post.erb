@@ -1,0 +1,17 @@
+<div class="container">
+<h4>Title:<%= @post.title %></h4>
+<h4>Body:<%= @post.body %></h4>
+<h4>Comments Section:</h4>
+<% @comments.each do |comment|%>
+<p> <%= comment.comment %>
+  <% end %>
+
+<div>
+  <% if current_user %>
+    <form action="/post/<%= @post.id %>/comment" method="post">
+      <input type="text" name="comment" placeholder="say something">
+      <button type="submit">Comment</button>
+    </form>
+  <% end %>
+</div>
+</div>
