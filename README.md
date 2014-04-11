@@ -2,4 +2,4 @@
 
 ![Here](http://i.imgur.com/caXExjm.jpg)
 
-![Trello](https://trello.com/b/GSIU1wJz/survey-gorilla)
+[Trello](https://trello.com/b/GSIU1wJz/survey-gorilla)
