@@ -8,11 +8,9 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     @user = User.find_by_email(email)
-    if @user && @user.password == password
-      return @user
-    else
-      return nil
+    if @user.password != password
+      @user.errors[:base] << "Wrong password"
     end
+    return @user
   end
-
 end
