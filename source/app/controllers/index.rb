@@ -60,16 +60,19 @@ end
 
 #----------- USERS -----------
 
-get '/users/new' do
+get '/user/new' do
   erb :sign_up
 end
 
 
-
-
 post '/users' do
-  User.create(params)
-  redirect('/')
+  @user = User.create(params)
+  if @user.errors.full_messages.count != 0
+    erb :_errors
+  else
+    session[:user_id] = @user.id
+    redirect("/users/#{session[:user_id]}")
+  end
 end
 
 # get '/' do

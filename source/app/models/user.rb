@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
   validates_presence_of :name
 
+
   def self.authenticate(email, password)
     @user = User.find_by_email(email)
     if @user.password != password
