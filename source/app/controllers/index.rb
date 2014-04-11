@@ -12,18 +12,23 @@ get '/users/:id' do
   erb :profile
 end
 
-
-
-
 get '/sessions/new' do
   erb :sign_in
 end
 
 post '/sessions' do
   @user = User.find_by_email(params[:email])
-  session[:user_id] = @user.id
-  p session[:user_id]
-  redirect ("/users/#{session[:user_id]}")
+  if @user
+    @user = User.authenticate(params[:email], params[:password])
+    if @user.errors.full_messages.count != 0
+      erb :_errors
+    else
+      session[:user_id] = @user.id
+      redirect ("/users/#{session[:user_id]}")
+    end
+  else
+     erb :_invalid_user
+  end
 end
 
 get '/logout' do
@@ -55,16 +60,19 @@ end
 
 #----------- USERS -----------
 
-get '/users/new' do
+get '/user/new' do
   erb :sign_up
 end
 
 
-
-
 post '/users' do
-  User.create(params)
-  redirect('/')
+  @user = User.create(params)
+  if @user.errors.full_messages.count != 0
+    erb :_errors
+  else
+    session[:user_id] = @user.id
+    redirect("/users/#{session[:user_id]}")
+  end
 end
 
 # get '/' do
