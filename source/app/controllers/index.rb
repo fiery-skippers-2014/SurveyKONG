@@ -3,6 +3,7 @@
 #----------- SESSIONS -----------
 
 get '/sessions/new' do
+
   erb :sign_in
 end
 
@@ -66,6 +67,8 @@ end
 
 get '/post/:id' do
   @post = Post.find(params[:id])
+
+
   @comments = @post.comments
   erb :show_post
 end
@@ -75,4 +78,23 @@ end
 get '/' do
   @posts = Post.all
   erb :index
+
+end
+
+#--------Voting -----------
+
+post '/postvote' do
+  params[:user_id] = session[:user_id]
+  @postvote = PostVote.create(user_id: params[:user_id],post_id: params[:post])
+  # @vote_count = PostVote.find_all_by_post_id(params[:go]).length
+  # @vote_count.to_json
+  {post_id: @postvote.post_id, votecount: PostVote.find_all_by_post_id(params[:post]).length }.to_json
+end
+
+post '/postcomment' do
+  params[:user_id] = session[:user_id]
+  @commentvote = CommentVote.create(user_id: params[:user_id], comment_id: params[:comment])
+  # @commentvote.votecount =
+  # @commentvote.save
+  {comment_id: @commentvote.comment_id, votecount: CommentVote.find_all_by_comment_id(params[:comment]).length}.to_json
 end

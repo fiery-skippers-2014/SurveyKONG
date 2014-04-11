@@ -3,7 +3,13 @@
 <h4>Body:<%= @post.body %></h4>
 <h4>Comments Section:</h4>
 <% @comments.each do |comment|%>
-<p> <%= comment.comment %>
+  <form action="/postcomment" method="post">
+    <input id="comment" type="hidden" name="comment" value="<%= comment.id %>">
+    <p id="upvotesa<%= comment.id %>"><%= comment.votecount %></p>
+    <%= comment.comment %>
+    <button class="postcomment" type="submit">UpVote</button>
+  </form> &nbsp;
+
   <% end %>
 
 <div>
