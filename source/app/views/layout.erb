@@ -19,20 +19,18 @@
         <li><a href="/">Home</a></li>
       <% if current_user %>
         <li>
-          <a href="/profile/<%= current_user.id %>">Profile</a>
-          <a href="/post/<%= current_user.id %>/new">Submit</a>
-          <form id="sign-out" action="/sessions/<%= current_user.id %>" method="post">
-            <input name="_method" type="hidden" value="delete" />
-            <input type="submit" value="Sign Out">
-          </form>
+          <a href="/users/<%= current_user.id %>">Profile</a>
+
         </li>
+        <li><a href="/logout" id="sign-out">Logout</a></li>
       <% else %>
         <li><a href="/sessions/new">Sign In</a></li>
         <li><a href="/users/new">Sign Up</a></li>
       <% end %>
     </ul>
   </nav>
-
+<div class="container">
   <%= yield %>
+</div>
 </body>
 </html>
