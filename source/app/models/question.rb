@@ -3,5 +3,5 @@ class Question < ActiveRecord::Base
   belongs_to :survey
 
   validates :question, presence: true, length: { :maximum => 140 }
-  validates :question, uniqueness: true
+  validates :question, uniqueness: {scope: :survey_id}
 end
