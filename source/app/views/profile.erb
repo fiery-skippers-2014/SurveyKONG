@@ -3,6 +3,8 @@
 <h2><a href="/survey/<%= current_user.id %>/new">Create Survey</a></h2>
 <h3>Complete a survey:</h3>
 <ol>
+
+
   <% all_surveys.each do |survey| %>
   <li><a href="/survey/<%= survey.id %>/user/<%= current_user.id %>"><%= survey.title %></a></li>
   <% end %>
