@@ -4,4 +4,9 @@ class Survey < ActiveRecord::Base
 
   validates :title, presence: true, length: { :maximum => 140 }
   validates :description, length: { :maximum => 400 }
+
+  def survey_length
+
+  end
+
 end
