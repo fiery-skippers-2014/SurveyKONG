@@ -17,24 +17,14 @@ get '/survey/:survey_id/user/:user_id' do
 end
 
 post '/survey/:survey_id/user/:user_id' do
-  @survey_id = params[:survey_id].to_i
 
-  @completed_survey = CompletedSurvey.create(survey_id: @survey_id,user_id: params[:user_id])
-  @questions_count = Survey.find(@survey_id).questions.count
-  raw_params = params.to_a # turns params into array for indexing
-  p "-"*50
-  raw_params.each_with_index do |x,y|
-    if y < @questions_count
-       QuestionChoice.create(question_id:x[0].to_i, choice:x[1])
-    end
   end
 
-  redirect "/users/#{session[:user_id]}"
+  redirect "/user/#{session[:user_id]}"
 end
 
 #User Home Page
-get '/users/:id' do
-  @id = 1
+get '/user/:id' do
   erb :profile
 end
 
