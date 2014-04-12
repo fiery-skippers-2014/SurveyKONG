@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   var counter = 1
 
   $('#add_question').on('click', function(){

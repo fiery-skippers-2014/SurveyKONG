@@ -1,7 +1,14 @@
 <h1>Please fill out the form for <%= @current_survey.title %></h1>
+<form>
 <% @questions.each do |question| %>
 
 <h4><%= question.question %></h4>
-
+ <% question.question_choices.each do |question_choice| %>
+    <span><%= question_choice.choice %> : </span> <input type="radio" name="<%=question.id%>" value="<%= question_choice.choice %>" >
+    <br>
+ <% end %>
+ <hr>
 <% end %>
-
+<br>
+<input type="submit">
+</form>
