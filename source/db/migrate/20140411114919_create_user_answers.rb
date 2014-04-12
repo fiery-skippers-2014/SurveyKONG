@@ -4,6 +4,7 @@ class CreateUserAnswers < ActiveRecord::Migration
       user_answer.belongs_to :user
       user_answer.belongs_to :question_choice
       user_answer.belongs_to :completed_survey
+      user_answer.belongs_to :question
     end
   end
 end
