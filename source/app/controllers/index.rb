@@ -9,6 +9,10 @@ end
 
 #User Home Page
 get '/users/:id' do
+
+
+
+  @id = 1
   erb :profile
 end
 
@@ -43,15 +47,15 @@ get '/logout' do
 end
 
 get '/viewresults' do
+  @id = 1
   erb :temp_profile
 end
 
 post '/viewresults' do
-  @surveys = CompletedSurvey.last # Change this to survey clicked!!!!!!
+  @surveys = CompletedSurvey.find_by_id(params[:id].to_i)
+  # @surveys = CompletedSurvey.last # Change this to survey clicked!!!!!!
   survey_hash = {}
   @surveys.survey.questions.each do |question|
-    p question
-    p "HEREHREHREHREHREHREREH"
     true_value = 0
     false_value = 0
     number_of_surveys_completed = 0
@@ -66,7 +70,7 @@ post '/viewresults' do
       survey_hash[question.id] = true_value/(true_value+ false_value)
       survey_hash[0] = number_of_surveys_completed
   end
-    survey_hash.to_json
+  survey_hash.to_json
 end
 
 post '/survey/:id/new' do
@@ -90,8 +94,6 @@ post '/survey/:id/new' do
 
   redirect '/'
 end
-
-
 
 
 
