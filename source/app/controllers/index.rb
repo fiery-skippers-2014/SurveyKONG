@@ -54,7 +54,11 @@ get '/logout' do
 end
 
 post '/viewresults' do
-  @surveys = CompletedSurvey.find_by_id(params[:id].to_i)
+  if CompletedSurvey.find_by_id(params[:id].to_i) == nil
+    redirect('https://www.surveymonkey.com/pricing/?ut_source=header')
+  else
+    @surveys = CompletedSurvey.find_by_id(params[:id].to_i)
+  end
   # @surveys = CompletedSurvey.last # Change this to survey clicked!!!!!!
   survey_hash = {}
   @surveys.survey.questions.each do |question|
