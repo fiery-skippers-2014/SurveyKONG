@@ -18,3 +18,15 @@
 <input type="text" id="p_new" size="20" name="p_new" value="" placeholder="Input Value" /><a href="#" id="addNew">Add</a>
 </p>
 </div>
+
+
+
+<% current_user.surveys.each do |survey| %>
+  <p><%= survey.title %></p>
+  <p><%= survey.description %></p>
+  <div class = 'results'>
+    <form action="/viewresults" method="post">
+      <button id='<%=survey.id%>' type="submit">Results</button>
+    </form>
+  </div>
+<%end%>

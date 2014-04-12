@@ -18,17 +18,8 @@ end
 
 
 
-
-
-
-
-
-
 #User Home Page
 get '/users/:id' do
-
-
-
   @id = 1
   erb :profile
 end
@@ -38,7 +29,6 @@ get '/sessions/new' do
 end
 
 get '/survey/:id/new' do
-
   erb :create_survey
 end
 
@@ -61,11 +51,6 @@ end
 get '/logout' do
   session[:user_id] = nil
   redirect '/'
-end
-
-get '/viewresults' do
-  @id = 1
-  erb :temp_profile
 end
 
 post '/viewresults' do
@@ -110,7 +95,7 @@ post '/survey/:id/new' do
     QuestionChoice.create(question_id: question_back.id, choice: "false")
   end
 
-  redirect '/'
+  redirect "/user/#{session[:user_id]}"
 end
 
 

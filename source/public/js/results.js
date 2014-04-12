@@ -10,6 +10,9 @@ $(document).ready(function () {
 
       success: function(data){
         x = JSON.parse(data);
+        if x == null{
+          console.log("sdrgsdgd")
+        }
         console.log(x[0]);
         $('.results').append("<h4>Survey was completed "+ x[0]+" times</h4>");
         for(i = 1; i <= x[0]; i++){
