@@ -36,17 +36,47 @@ get '/logout' do
   redirect '/'
 end
 
+get '/viewresults' do
+  erb :temp_profile
+end
 
+post '/viewresults' do
+  @surveys = CompletedSurvey.last # Change this to survey clicked!!!!!!
+
+
+  survey_hash = {}
+
+@surveys.survey.questions.each do |question|
+  p question
+  p "HEREHREHREHREHREHREREH"
+  true_value = 0
+  false_value = 0
+  number_of_surveys_completed = 0
+  @surveys.user_answers.find_all_by_question_id(question.id).each do |answer|
+    if answer.question_choice.choice == "true"
+      true_value += 1
+    else
+      false_value += 1
+    end
+    number_of_surveys_completed += 1
+  end
+    survey_hash[question.id] = true_value/(true_value+ false_value)
+    survey_hash[0] = number_of_surveys_completed
+end
+
+
+
+
+  survey_hash.to_json
+  # .to_json
+
+end
 # post '/sessions' do
 #   @user = User.find_by_email(params[:email])
 #   session[:user_id] = @user.id
 #   p session[:user_id]
 #   redirect ('/')
 # end
-
-get '/sessions/new' do
-
-end
 
 
 # delete '/sessions/:id' do
