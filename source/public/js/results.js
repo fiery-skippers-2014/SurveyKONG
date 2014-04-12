@@ -1,21 +1,24 @@
 $(document).ready(function () {
 
-  $('.submitbutton').on("click", function(e){
+  $('.results button').on("click", function(e){
     event.preventDefault();
 
     $.ajax({
       type: "post",
       url: "/viewresults",
-      data: $(this).serialize,
+      data: {id: $(this)[0].id},
 
       success: function(data){
         x = JSON.parse(data);
+        if x == null{
+          console.log("sdrgsdgd")
+        }
         console.log(x[0]);
-        $('.submitbutton').append("<h4>Survey was completed "+ x[0]+" times</h4>");
+        $('.results').append("<h4>Survey was completed "+ x[0]+" times</h4>");
         for(i = 1; i <= x[0]; i++){
           console.log(i)
           console.log(x[i])
-          $('.submitbutton').append("<li> Question " + i + ": " +  (x[i] *100) + " % true")
+          $('.results').append("<li> Question " + i + ": " +  (x[i] *100) + " % true")
         }
       },
 
