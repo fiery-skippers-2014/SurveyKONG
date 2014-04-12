@@ -25,13 +25,15 @@ post '/survey/:survey_id/user/:user_id' do
     if index < @questions_count
      UserAnswer.create(user_id: params[:user_id], question_id: question_and_choice[0].to_i, question_choice_id: question_and_choice[1].to_i, completed_survey_id: @completed_survey.id)
     end
+
   end
 
-  redirect "/users/#{session[:user_id]}"
+  redirect "/user/#{session[:user_id]}"
 end
 
 #User Home Page
-get '/users/:id' do
+
+get '/user/:id' do
   erb :profile
 end
 

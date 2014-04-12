@@ -1,4 +1,4 @@
-<h1>Please fill out the form for <%= @current_survey.title %></h1>
+<h1><%= @current_survey.title %></h1>
 <form method="post" action="/survey/<%=@current_survey.id%>/user/<%=session[:user_id]%>">
 
 
