@@ -4,6 +4,7 @@
 
 #splash page, not logged in
 get '/' do
+
   erb :index
 
 end
@@ -54,7 +55,7 @@ post '/sessions' do
       erb :_errors
     else
       session[:user_id] = @user.id
-      redirect ("/users/#{session[:user_id]}")
+      redirect ("/user/#{session[:user_id]}")
     end
   else
      erb :_invalid_user
@@ -140,18 +141,19 @@ end
 
 #----------- USERS -----------
 
-get '/user/new' do
+get '/sign_up' do
   erb :sign_up
+    # session[:user_id] = nil
 end
 
 
-post '/users' do
+post '/user' do
   @user = User.create(params)
   if @user.errors.full_messages.count != 0
     erb :_errors
   else
     session[:user_id] = @user.id
-    redirect("/users/#{session[:user_id]}")
+    redirect("/user/#{session[:user_id]}")
   end
 end
 
