@@ -5,7 +5,6 @@
 #splash page, not logged in
 get '/' do
   erb :index
-
 end
 
 #Complete A survey
