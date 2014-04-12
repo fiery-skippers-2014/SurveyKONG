@@ -2,6 +2,7 @@ $(document).ready(function () {
 
   $('.results button').on("click", function(e){
     event.preventDefault();
+    console.log(this)
 
     $.ajax({
       type: "post",

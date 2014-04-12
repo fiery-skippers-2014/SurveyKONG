@@ -18,14 +18,12 @@ end
 
 post '/survey/:survey_id/user/:user_id' do
   @survey_id = params[:survey_id].to_i
-
   @completed_survey = CompletedSurvey.create(survey_id: @survey_id,user_id: params[:user_id])
   @questions_count = Survey.find(@survey_id).questions.count
-  raw_params = params.to_a # turns params into array for indexing
-  p "-"*50
-  raw_params.each_with_index do |x,y|
-    if y < @questions_count
-       QuestionChoice.create(question_id:x[0].to_i, choice:x[1])
+  params_array = params.to_a # turns params into array for indexing
+  params_array.each_with_index do |question_and_choice, index|
+    if index < @questions_count
+     UserAnswer.create(user_id: params[:user_id], question_id: question_and_choice[0].to_i, question_choice_id: question_and_choice[1].to_i, completed_survey_id: @completed_survey.id)
     end
   end
 
@@ -34,7 +32,6 @@ end
 
 #User Home Page
 get '/users/:id' do
-  @id = 1
   erb :profile
 end
 
@@ -68,8 +65,10 @@ get '/logout' do
 end
 
 post '/viewresults' do
+  p "#"*100
+  p params[:id]
   if CompletedSurvey.find_by_id(params[:id].to_i) == nil
-    redirect('https://www.surveymonkey.com/pricing/?ut_source=header')
+    redirect back
   else
     @surveys = CompletedSurvey.find_by_id(params[:id].to_i)
   end
@@ -115,7 +114,7 @@ post '/survey/:id/new' do
     QuestionChoice.create(question_id: question_back.id, choice: "false")
   end
 
-  redirect "/user/#{session[:user_id]}"
+  redirect "/users/#{session[:user_id]}"
 end
 
 

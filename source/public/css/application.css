@@ -1,21 +1,9 @@
 
 .container {
-  background: url("/king_hug.jpg");
   margin: 20px auto;
   width: 800px;
   padding: 0px 20px 20px 20px;
   border: 1px dotted black;
-}
-
-.cool{
-   background: url("/king_digital.jpg");
-   height: 500px;
-   width: 1000px;
-   margin: 0px auto;
-}
-
-.translucent img{
-  opacity: 1;
 }
 
 
