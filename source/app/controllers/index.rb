@@ -5,6 +5,7 @@
 #splash page, not logged in
 get '/' do
   erb :index
+
 end
 
 #Complete A survey
@@ -12,11 +13,24 @@ end
 get '/survey/:survey_id/user/:user_id' do
   @current_survey = Survey.find(params[:survey_id])
   @questions = Question.where(survey_id: @current_survey)
-erb :complete_survey
-
+  erb :complete_survey
 end
 
+post '/survey/:survey_id/user/:user_id' do
+  @survey_id = params[:survey_id].to_i
 
+  @completed_survey = CompletedSurvey.create(survey_id: @survey_id,user_id: params[:user_id])
+  @questions_count = Survey.find(@survey_id).questions.count
+  raw_params = params.to_a # turns params into array for indexing
+  p "-"*50
+  raw_params.each_with_index do |x,y|
+    if y < @questions_count
+       QuestionChoice.create(question_id:x[0].to_i, choice:x[1])
+    end
+  end
+
+  redirect "/users/#{session[:user_id]}"
+end
 
 
 
@@ -97,8 +111,10 @@ post '/survey/:id/new' do
   user_id = user_data[1]
   total_questions = user_data[-1]
   questions = raw_params - user_data # creates array with just questions
+  p questions
   @survey = Survey.create(user_id: user_id[1], title: title[1]) # grabs actual values out of tuplet
   survey_id = @survey.id.to_i
+  p @survey
 
   questions.each do |question|
     question_back = Question.create(survey_id: survey_id, question: question[1]) # will work when questions
