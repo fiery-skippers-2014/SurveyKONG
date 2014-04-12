@@ -1,14 +1,15 @@
 $(document).ready(function () {
+  var counter = 1
 
-
-
-
-  var counter = 0;
-
-  $('.add').on('click', function(){
-      counter ++;
-      $('<input id="question'+counter+'" class="add">Add</input><a href="#">Click</a>').insertBefore('.add:last');
+  $('#add_question').on('click', function(){
+    event.preventDefault();
+    counter+=1
+    $('<p>Question '+counter+'</p>  <input type="text" name="question'+counter+'"> <hr>').insertBefore("#question_format");
+    $('input[name="total_questions"]').val('' +counter+ '')
   });
+
+
+
 });
 
 
