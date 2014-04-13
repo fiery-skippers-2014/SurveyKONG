@@ -1,18 +1,17 @@
 <h1><%= @current_survey.title %></h1>
-<form method="post" action="/survey/<%=@current_survey.id%>/user/<%=session[:user_id]%>">
+<form class="survey" method="post" action="/survey/<%=@current_survey.id%>/user/<%=session[:user_id]%>">
+  <% @questions.each do |question| %>
+  <div class="question_holder">
+  <p class="question_title"><%= question.question %></p>
 
+      <% question.question_choices.each do |question_choice| %>
+      <span class="true_false"><%= question_choice.choice %> : </span> <input class="radio_display" type="radio" name="<%=question_choice.question.id%>" value="<%=question_choice.id%>">
+      <br>
 
+      <% end %>
+ </div>
+      <% end %>
 
-<% @questions.each do |question| %>
-<h4><%= question.question %></h4>
-
-    <% question.question_choices.each do |question_choice| %>
-    <span><%= question_choice.choice %> : </span> <input type="radio" name="<%=question_choice.question.id%>" value="<%=question_choice.id%>">
-    <br> <% end %>
-
-
-
-    <hr><% end %>
-<br>
-<input type="submit">
+  <br>
+  <input type="submit">
 </form>

@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
   <script src="/js/application.js"></script>
   <script src="/js/results.js"></script>
-
+  <script src="/js/increment.js"></script>
   <title></title>
 </head>
 <body>
@@ -21,7 +21,7 @@
         <li><a href="/">Home</a></li>
       <% if current_user %>
         <li>
-          <a href="/users/<%= current_user.id %>">Profile</a>
+          <a href="/user/<%= current_user.id %>">Profile</a>
 
         </li>
         <li><a href="/logout" id="sign-out">Logout</a></li>

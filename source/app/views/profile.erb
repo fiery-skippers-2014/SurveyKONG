@@ -6,6 +6,7 @@
 
   <% all_surveys.each do |survey| %>
   <li><a href="/survey/<%= survey.id %>/user/<%= current_user.id %>"><%= survey.title %></a></li>
+  <li><a href="/survey/<%= survey.id %>/user/<%= current_user.id %>/increment"><%= survey.title %>Increment</a></li>
   <% end %>
 </ol>
 
