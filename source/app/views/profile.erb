@@ -9,15 +9,18 @@
   <% end %>
 </ol>
 
+<h3>Surveys you created :</h3>
+<ol>
+  <% current_user.surveys.each do |survey| %>
+    <li><%= survey.title %> <%= survey.description %></li>
+    <div class = "results">
+      <form action="/viewresults" method="post">
+        <button id='<%=survey.id%>' type="submit">Results</button>
+      </form>
+    </div>
+  <%end%>
+</ol>
 
-<% current_user.surveys.each do |survey| %>
-  <p><%= survey.title %></p>
-  <p><%= survey.description %></p>
-  <div class = "results">
-    <form action="/viewresults" method="post">
-      <button id='<%=survey.id%>' type="submit">Results</button>
-    </form>
-  </div>
-<%end%>
+<a href="http://www.highcharts.com/demo/dynamic-update/skies">Live Data</a>
 
 
