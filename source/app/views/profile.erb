@@ -13,7 +13,7 @@
 <% current_user.surveys.each do |survey| %>
   <p><%= survey.title %></p>
   <p><%= survey.description %></p>
-  <div class = 'results'>
+  <div class = "results">
     <form action="/viewresults" method="post">
       <button id='<%=survey.id%>' type="submit">Results</button>
     </form>

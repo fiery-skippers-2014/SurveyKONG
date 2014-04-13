@@ -67,29 +67,32 @@ get '/logout' do
 end
 
 post '/viewresults' do
-  p "#"*100
-  p params[:id]
   if CompletedSurvey.find_by_id(params[:id].to_i) == nil
     redirect back
   else
-    @surveys = CompletedSurvey.find_by_id(params[:id].to_i)
+    @surveys = CompletedSurvey.find_all_by_survey_id(params[:id].to_i)
   end
-  # @surveys = CompletedSurvey.last # Change this to survey clicked!!!!!!
+
   survey_hash = {}
-  @surveys.survey.questions.each do |question|
-    true_value = 0
-    false_value = 0
-    number_of_surveys_completed = 0
-    @surveys.user_answers.find_all_by_question_id(question.id).each do |answer|
-      if answer.question_choice.choice == "true"
-        true_value += 1
-      else
-        false_value += 1
+
+  survey_hash[0] = @surveys.count
+
+  count = 1
+  @surveys.first.survey.questions.each do |anything|
+    survey_hash[count] = 0
+    count += 1
+  end
+
+  @surveys.each do |survey|
+    question_counter = 1
+    survey.survey.questions.each do |question|
+      survey.user_answers.find_all_by_question_id(question.id).each do |answer|
+        if answer.question_choice.choice == "true"
+          survey_hash[question_counter] += 1
+        end
       end
-      number_of_surveys_completed += 1
+      question_counter += 1
     end
-      survey_hash[question.id] = true_value/(true_value+ false_value)
-      survey_hash[0] = number_of_surveys_completed
   end
   survey_hash.to_json
 end
@@ -116,7 +119,7 @@ post '/survey/:id/new' do
     QuestionChoice.create(question_id: question_back.id, choice: "false")
   end
 
-  redirect "/users/#{session[:user_id]}"
+  redirect "/user/#{session[:user_id]}"
 end
 
 
