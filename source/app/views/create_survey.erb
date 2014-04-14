@@ -1,8 +1,8 @@
 
-  <form method="post" action="/survey/<%= current_user.id %>/new">
+  <form class="survey" method="post" action="/survey/<%= current_user.id %>/new">
     <h4>Survey Title: <input type="text" name="title"></h4> <br>
     Question  1<br>  <input type="text" name="question1"><hr> <br>
-  <div id="question_format">
+  <div id="question_format" class="question">
   </div>
     <br>
     <input type="hidden" value="1" id="total_questions" name="total_questions">
