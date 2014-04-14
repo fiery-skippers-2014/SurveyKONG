@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/normalize.css">
+
+  <link rel="stylesheet" href="/css/application.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="/js/application.js"></script>
+  <script src="/js/results.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+
+  <title></title>
+
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Questions');
+        data.addColumn('number', '% Agree');
+        data.addRows([
+          ['Are you alive?', .50],
+          ['Do you know things?', .05],
+          ['What is happening?', 0.45],
+          ['Is this real?', 0.64],
+          ['Are you hungry?', .99]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Your Amazing Survey!',
+                       'width':700,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+
+  <nav class="nav_bar">
+    <div class="brand">
+      <div class="logo"><h4>Survey Kong</h4></div>
+    </div>
+    <ul>
+        <li><a href="/">Home</a></li>
+      <% if current_user %>
+        <li>
+          <a href="/user/<%= current_user.id %>">Profile</a>
+
+        </li>
+        <li><a href="/logout" id="sign-out">Logout</a></li>
+      <% else %>
+        <li><a href="/sessions/new">Sign In</a></li>
+        <li><a href="/sign_up">Sign Up</a></li>
+      <% end %>
+    </ul>
+  </nav>
+<div class="container">
+  <%= yield %>
+</div>
+</body>
+</html>
