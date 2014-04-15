@@ -8,6 +8,7 @@ $('#form_click').on('click', function(){
   $.ajax({
     type: "POST",
     url: $(location).attr('href'),
+    // shouldn't be on master.
     data: {thing: "woo"} // fix this
 
 

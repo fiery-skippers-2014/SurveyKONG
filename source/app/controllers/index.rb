@@ -17,7 +17,9 @@ get '/survey/:survey_id/user/:user_id' do
 end
 
 post '/survey/:survey_id/user/:user_id' do
+  # you never have to convert Id's to integers. Active record handled this.
   @survey_id = params[:survey_id].to_i
+  # you should never talk to join tables, instead use the query interface.
   @completed_survey = CompletedSurvey.create(survey_id: @survey_id,user_id: params[:user_id])
   @questions_count = Survey.find(@survey_id).questions.count
   params_array = params.to_a # turns params into array for indexing
@@ -78,11 +80,13 @@ post '/viewresults' do
   survey_hash[0] = @surveys.count
 
   count = 1
+  # what is happening I'm so confused.
   @surveys.first.survey.questions.each do |anything|
     survey_hash[count] = 0
     count += 1
   end
 
+  # this is the jagged right edge of death. So many nested loops and conditionals! much of this logic should be moved to the model, or handled through the association structure.
   @surveys.each do |survey|
     question_counter = 1
     survey.survey.questions.each do |question|
@@ -98,7 +102,7 @@ post '/viewresults' do
 end
 
 post '/survey/:id/new' do
-
+  # why don't your params have key/value pairs?
   raw_params = params.to_a # turns params into array for indexing
   p raw_params
   user_data = raw_params.values_at(0,-1, -2, -3, -4) #grabs title, user_id, # of questions, and scrubs other entries
@@ -108,6 +112,7 @@ post '/survey/:id/new' do
   user_id = user_data[1]
   total_questions = user_data[-1]
   questions = raw_params - user_data # creates array with just questions
+  # no p's in production
   p questions
   @survey = Survey.create(user_id: user_id[1], title: title[1]) # grabs actual values out of tuplet
   survey_id = @survey.id.to_i
@@ -115,6 +120,8 @@ post '/survey/:id/new' do
 
   questions.each do |question|
     question_back = Question.create(survey_id: survey_id, question: question[1]) # will work when questions
+    # again, should be handled by the query interface.
+    # question_back.question_choices.create(choice: "true")
     QuestionChoice.create(question_id: question_back.id, choice: "true")
     QuestionChoice.create(question_id: question_back.id, choice: "false")
   end
@@ -141,6 +148,8 @@ end
 #   erb :home
 # end
 
+
+# handle these separations in separate files!
 #----------- USERS -----------
 
 get '/sign_up' do
